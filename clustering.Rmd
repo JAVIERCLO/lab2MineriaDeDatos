@@ -1,5 +1,142 @@
 ---
-title: "clustering"
-output: html_document
+title: "Laboratorio 2"
+autor: Javier Chávez, Genser Catalán, Samuel Mejía
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(nortest)
+library(factoextra)
+library(cluster)
+library(dplyr)
+```
+
+```{r}
+movies <- read.csv("datos/movies_2026.csv")
+```
+
+```{r}
+# Selección de variables numéricas
+numericas <- c("budget", "revenue", "runtime", "genresAmount", "productionCoAmount", 
+               "productionCountriesAmount", "actorsAmount", "castWomenAmount", 
+               "castMenAmount", "releaseYear", "popularity", "voteCount", "voteAvg")
+
+movies_num <- movies[, numericas]
+
+# Selección de variables categóricas
+movies_cat <- movies[, !names(movies) %in% c(numericas, "id")]
+
+# Limpieza y escalado de datos numéricos
+datos_clustering <- na.omit(movies_num)
+
+if (nrow(datos_clustering) < 100) {
+  datos_clustering <- movies_num
+  datos_clustering[is.na(datos_clustering)] <- 0
+}
+datos_escalados <- scale(datos_clustering)
+
+# Muestra aleatoria para visualizaciones pesadas
+set.seed(123)
+datos_muestra <- datos_escalados[sample(nrow(datos_escalados), 2000), ]
+```
+
+
+```{r}
+# Estadístico de Hopkins y VAT (Visual Assessment of cluster Tendency)
+set.seed(123)
+datos_vat <- datos_escalados[sample(nrow(datos_escalados), 500), ]
+
+# Calculamos Hopkins y generamos VAT con un 'n' más prudente (ej. 50 puntos a evaluar)
+tendencia <- get_clust_tendency(datos_vat, n = 50, graph = TRUE)
+
+print(paste("Estadístico de Hopkins:", tendencia$hopkins_stat))
+
+# Gráfica VAT
+tendencia$plot + ggtitle("Gráfica VAT (Muestra 500)")
+```
+
+```{r}
+# Gráfica de codo
+p1 <- fviz_nbclust(datos_muestra, kmeans, method = "wss") +
+  geom_vline(xintercept = 3, linetype = 2, color = "red") +
+  labs(title = "Método del Codo (Muestra de 2,000)", 
+       subtitle = "Suma de cuadrados intra-cluster")
+
+# Gráfica de silueta 
+p2 <- fviz_nbclust(datos_muestra, kmeans, method = "silhouette") +
+  labs(title = "Método de la Silueta (Muestra de 2,000)",
+       subtitle = "Calidad de agrupamiento")
+
+print(p1)
+print(p2)
+```
+
+```{r}
+# --- Algoritmo K-Medias ---
+set.seed(123)
+km_final <- kmeans(datos_escalados, centers = 3, nstart = 25)
+
+# --- Algoritmo Jerárquico ---
+# Usamos la muestra para el jerárquico ya que una matriz de distancia de 19k filas consumiría demasiada memoria
+matriz_distancia <- dist(datos_muestra, method = "euclidean")
+hc_modelo <- hclust(matriz_distancia, method = "ward.D2")
+
+# Cortar el árbol en 3 grupos
+hc_grupos <- cutree(hc_modelo, k = 3)
+
+# --- Comparación de Calidad (Silueta) ---
+# Silueta para K-Medias (sobre la muestra para comparar de forma justa)
+km_muestra_grupos <- kmeans(datos_muestra, centers = 3, nstart = 25)$cluster
+sil_km <- silhouette(km_muestra_grupos, matriz_distancia)
+
+# Silueta para Jerárquico
+sil_hc <- silhouette(hc_grupos, matriz_distancia)
+
+# Visualización K-Medias
+fviz_cluster(km_final, data = datos_escalados, geom = "point", 
+             ellipse.type = "convex", main = "Clustering Final con K-means")
+
+# Visualización Dendrograma Jerárquico
+plot(hc_modelo, cex = 0.5, main = "Dendrograma Jerárquico", xlab="", sub="")
+rect.hclust(hc_modelo, k = 3, border = 2:4)
+```
+
+```{r}
+# Gráficos de Silueta comparativos
+fviz_silhouette(sil_km, main = "Calidad Silueta - K-Medias")
+fviz_silhouette(sil_hc, main = "Calidad Silueta - Jerárquico")
+```
+
+```{r}
+# Asignamos los grupos del modelo K-medias (si fue el elegido) al dataset original
+datos_clustering$Cluster <- as.factor(km_final$cluster)
+
+# Medidas de tendencia central por grupo (Media)
+resumen_clusters <- datos_clustering %>%
+  group_by(Cluster) %>%
+  summarise(across(everything(), \(x) mean(x, na.rm = TRUE)))
+
+print("Medidas de tendencia central (Media) por Clúster:")
+print(resumen_clusters)
+
+# Ejemplo para tablas de frecuencia de variables categóricas asociadas a los clústeres
+# (Unimos el clúster a los datos categóricos usando el índice de las filas válidas)
+filas_validas <- as.numeric(rownames(datos_clustering))
+movies_cat_validas <- movies_cat[filas_validas, ]
+movies_cat_validas$Cluster <- datos_clustering$Cluster
+
+# Frecuencia del Idioma Original por Clúster
+table(movies_cat_validas$Cluster, movies_cat_validas$originalLanguage)
+```
+
+
+
 
