@@ -1,0 +1,106 @@
+---
+title: "PCA laboratorio 2"
+output: html_notebook
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r paquetes}
+library(psych)
+library(FactoMineR)
+library(fpc)
+library(factoextra)
+library(corrplot)
+library(PCAmixdata)
+library(paran)
+```
+
+
+```{r carga de datos}
+movies<- read.csv("datos/movies_2026.csv")
+colnames(movies)
+```
+
+```{r selección de variables para PCA}
+variables_pca <- movies[, c("budget", "revenue", "runtime", 
+                     "popularity", "voteAvg", "voteCount",
+                     "genresAmount",
+                     "productionCoAmount", 
+                     "productionCountriesAmount",
+                     "actorsAmount", 
+                     "castWomenAmount", "castMenAmount")]
+```
+
+```{r}
+str(variables_pca)
+nrow(variables_pca)
+variables_pca <- na.omit(variables_pca) #eliminar NAs porque son muy pocos en comparación con el total de datos y no afectará el resultado
+```
+
+
+```{r escalado de datos}
+movies_scaled <- scale(variables_pca)
+```
+
+
+```{r Matriz de correlación}
+rcor <- cor(variables_pca)
+det(rcor) # Ver determinante para saber si vale la pena el PCA
+```
+Determinante cercano a 0 significa que vale la pena seguir.
+
+```{r}
+KMO(as.matrix(variables_pca))
+```
+KMO cercano a 1 significa que el PCA es adecuado para los datos.
+
+```{r test de esfericidad de Barlett}
+cortest.bartlett(as.matrix(variables_pca))
+```
+
+Se rechaza la hipótesis nula de que las variables no están correlacionadas porque p.value < 0.05, así que seguimos con el PCA.
+
+```{r Matriz de correlación}
+corrplot(rcor)
+```
+
+```{r PCA}
+componentes_principales <- (prcomp(movies_scaled))
+componentes_principales
+```
+
+```{r Resumen}
+summary(componentes_principales)
+```
+
+```{r Regla de Kaiser}
+eigenvalores <- componentes_principales$sdev^2
+eigenvalores
+```
+Según la regla de Kaiser solo nos quedamos con los valores mayores a 1: 1, 2, 3.
+
+```{r Screeplot}
+fviz_eig(componentes_principales, addlabels = TRUE, ylim = c(0, 80))
+fviz_eig(componentes_principales, addlabels = TRUE, choice = c("eigenvalue"), ylim = c(0, 3))
+```
+
+```{r contribución de cada componente}
+fviz_contrib(componentes_principales, choice = "var", axes = 1, top = 10) #Dimensión 1
+fviz_contrib(componentes_principales, choice = "var", axes = 2, top = 10) #Dimensión 2
+fviz_contrib(componentes_principales, choice = "var", axes = 3, top = 10) #Dimensión 3
+
+var<-get_pca_var(componentes_principales)
+corrplot(var$cos2, is.corr = F)
+```
+```{r grafica de cosenos}
+fviz_pca_var(componentes_principales, col.var = "cos2",
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"), 
+             repel = TRUE # Avoid text overlapping
+)
+```
+Interpretación:
+PC1: Relaciona la ganancia según qué tan grande es la producción (cantidad de actores y actrices, presupuesto, tiempo de duración).
+PC2: Relaciona la ganancia, presupuesto, cantidad de actores hombres, cantidad de votos, promedio de voto y cantidad de países de producción.
+PC3: Relaciona ganancia, cantidad de actores hombres, cantidad de países de producción y cantidad de géneros.
