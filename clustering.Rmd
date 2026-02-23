@@ -1,5 +1,78 @@
 ---
-title: "clustering"
-output: html_document
+title: "Laboratorio 2"
+autor: Javier Chávez, Genser Catalán, Samuel Mejía
+output:
+  html_document:
+    df_print: paged
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r paquetes}
+library(ggplot2)
+library(nortest)
+```
+
+```{r}
+movies<- read.csv("datos/movies_2026.csv")
+colnames(movies)
+```
+
+### Ejercicio 1
+
+```{r variables numéricas}
+numericas <- c("budget","revenue","runtime","genresAmount","productionCoAmount","productionCountriesAmount","actorsAmount","castWomenAmount",
+"castMenAmount","releaseYear", "popularity", "voteCount", "voteAvg") #Seleccionar solo numéricas
+movies_num <- movies[, numericas]
+colnames(movies_num)
+```
+
+```{r variables categóricas}
+movies_cat <- movies[, !names(movies) %in% c(numericas, "id")] #Seleccionar solo categóricas
+names(movies_cat)
+```
+
+``` {r clustering}
+library(factoextra)
+library(cluster)
+
+
+datos_clustering <- na.omit(movies_num)
+
+
+if (nrow(datos_clustering) < 100) {
+  datos_clustering <- movies_num
+  datos_clustering[is.na(datos_clustering)] <- 0
+}
+datos_escalados <- scale(datos_clustering)
+
+
+set.seed(123)
+# 2,000 filas al azar solo para las gráficas
+datos_muestra <- datos_escalados[sample(nrow(datos_escalados), 2000), ]
+
+# Gráfica de codo
+p1 <- fviz_nbclust(datos_muestra, kmeans, method = "wss") +
+  geom_vline(xintercept = 3, linetype = 2, color = "red") +
+  labs(title = "Método del Codo (Muestra de 2,000)", 
+       subtitle = "Suma de cuadrados intra-cluster")
+
+# Gráfica de silueta 
+p2 <- fviz_nbclust(datos_muestra, kmeans, method = "silhouette") +
+  labs(title = "Método de la Silueta (Muestra de 2,000)",
+       subtitle = "Calidad de agrupamiento")
+
+
+print(p1)
+print(p2)
+
+
+set.seed(123)
+km_final <- kmeans(datos_escalados, centers = 3, nstart = 25)
+
+# Visualización del clustering final
+fviz_cluster(km_final, data = datos_escalados, geom = "point", 
+             ellipse.type = "convex", main = "Clustering Final con K-means")
+```
