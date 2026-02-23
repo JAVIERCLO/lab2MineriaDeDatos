@@ -1,0 +1,408 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Laboratorio 2},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Laboratorio 2}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(nortest)}
+\FunctionTok{library}\NormalTok{(factoextra)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(cluster)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Adjuntando el paquete: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{movies }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"datos/movies\_2026.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Selección de variables numéricas}
+\NormalTok{numericas }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"budget"}\NormalTok{, }\StringTok{"revenue"}\NormalTok{, }\StringTok{"runtime"}\NormalTok{, }\StringTok{"genresAmount"}\NormalTok{, }\StringTok{"productionCoAmount"}\NormalTok{, }
+               \StringTok{"productionCountriesAmount"}\NormalTok{, }\StringTok{"actorsAmount"}\NormalTok{, }\StringTok{"castWomenAmount"}\NormalTok{, }
+               \StringTok{"castMenAmount"}\NormalTok{, }\StringTok{"releaseYear"}\NormalTok{, }\StringTok{"popularity"}\NormalTok{, }\StringTok{"voteCount"}\NormalTok{, }\StringTok{"voteAvg"}\NormalTok{)}
+
+\NormalTok{movies\_num }\OtherTok{\textless{}{-}}\NormalTok{ movies[, numericas]}
+
+\CommentTok{\# Selección de variables categóricas}
+\NormalTok{movies\_cat }\OtherTok{\textless{}{-}}\NormalTok{ movies[, }\SpecialCharTok{!}\FunctionTok{names}\NormalTok{(movies) }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(numericas, }\StringTok{"id"}\NormalTok{)]}
+
+\CommentTok{\# Limpieza y escalado de datos numéricos}
+\NormalTok{datos\_clustering }\OtherTok{\textless{}{-}} \FunctionTok{na.omit}\NormalTok{(movies\_num)}
+
+\ControlFlowTok{if}\NormalTok{ (}\FunctionTok{nrow}\NormalTok{(datos\_clustering) }\SpecialCharTok{\textless{}} \DecValTok{100}\NormalTok{) \{}
+\NormalTok{  datos\_clustering }\OtherTok{\textless{}{-}}\NormalTok{ movies\_num}
+\NormalTok{  datos\_clustering[}\FunctionTok{is.na}\NormalTok{(datos\_clustering)] }\OtherTok{\textless{}{-}} \DecValTok{0}
+\NormalTok{\}}
+\NormalTok{datos\_escalados }\OtherTok{\textless{}{-}} \FunctionTok{scale}\NormalTok{(datos\_clustering)}
+
+\CommentTok{\# Muestra aleatoria para visualizaciones pesadas}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{datos\_muestra }\OtherTok{\textless{}{-}}\NormalTok{ datos\_escalados[}\FunctionTok{sample}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(datos\_escalados), }\DecValTok{2000}\NormalTok{), ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Estadístico de Hopkins y VAT (Visual Assessment of cluster Tendency)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{datos\_vat }\OtherTok{\textless{}{-}}\NormalTok{ datos\_escalados[}\FunctionTok{sample}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(datos\_escalados), }\DecValTok{500}\NormalTok{), ]}
+
+\CommentTok{\# Calculamos Hopkins y generamos VAT con un \textquotesingle{}n\textquotesingle{} más prudente (ej. 50 puntos a evaluar)}
+\NormalTok{tendencia }\OtherTok{\textless{}{-}} \FunctionTok{get\_clust\_tendency}\NormalTok{(datos\_vat, }\AttributeTok{n =} \DecValTok{50}\NormalTok{, }\AttributeTok{graph =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
+## i Please use tidy evaluation idioms with `aes()`.
+## i See also `vignette("ggplot2-in-packages")` for more information.
+## i The deprecated feature was likely used in the factoextra package.
+##   Please report the issue at <https://github.com/kassambara/factoextra/issues>.
+## This warning is displayed once per session.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Estadístico de Hopkins:"}\NormalTok{, tendencia}\SpecialCharTok{$}\NormalTok{hopkins\_stat))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Estadístico de Hopkins: 0.930745281261424"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Gráfica VAT}
+\NormalTok{tendencia}\SpecialCharTok{$}\NormalTok{plot }\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Gráfica VAT (Muestra 500)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{clustering_files/figure-latex/unnamed-chunk-4-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Gráfica de codo}
+\NormalTok{p1 }\OtherTok{\textless{}{-}} \FunctionTok{fviz\_nbclust}\NormalTok{(datos\_muestra, kmeans, }\AttributeTok{method =} \StringTok{"wss"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{3}\NormalTok{, }\AttributeTok{linetype =} \DecValTok{2}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Método del Codo (Muestra de 2,000)"}\NormalTok{, }
+       \AttributeTok{subtitle =} \StringTok{"Suma de cuadrados intra{-}cluster"}\NormalTok{)}
+
+\CommentTok{\# Gráfica de silueta }
+\NormalTok{p2 }\OtherTok{\textless{}{-}} \FunctionTok{fviz\_nbclust}\NormalTok{(datos\_muestra, kmeans, }\AttributeTok{method =} \StringTok{"silhouette"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Método de la Silueta (Muestra de 2,000)"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Calidad de agrupamiento"}\NormalTok{)}
+
+\FunctionTok{print}\NormalTok{(p1)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{clustering_files/figure-latex/unnamed-chunk-5-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(p2)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{clustering_files/figure-latex/unnamed-chunk-5-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-} Algoritmo K{-}Medias {-}{-}{-}}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{km\_final }\OtherTok{\textless{}{-}} \FunctionTok{kmeans}\NormalTok{(datos\_escalados, }\AttributeTok{centers =} \DecValTok{3}\NormalTok{, }\AttributeTok{nstart =} \DecValTok{25}\NormalTok{)}
+
+\CommentTok{\# {-}{-}{-} Algoritmo Jerárquico {-}{-}{-}}
+\CommentTok{\# Usamos la muestra para el jerárquico ya que una matriz de distancia de 19k filas consumiría demasiada memoria}
+\NormalTok{matriz\_distancia }\OtherTok{\textless{}{-}} \FunctionTok{dist}\NormalTok{(datos\_muestra, }\AttributeTok{method =} \StringTok{"euclidean"}\NormalTok{)}
+\NormalTok{hc\_modelo }\OtherTok{\textless{}{-}} \FunctionTok{hclust}\NormalTok{(matriz\_distancia, }\AttributeTok{method =} \StringTok{"ward.D2"}\NormalTok{)}
+
+\CommentTok{\# Cortar el árbol en 3 grupos}
+\NormalTok{hc\_grupos }\OtherTok{\textless{}{-}} \FunctionTok{cutree}\NormalTok{(hc\_modelo, }\AttributeTok{k =} \DecValTok{3}\NormalTok{)}
+
+\CommentTok{\# {-}{-}{-} Comparación de Calidad (Silueta) {-}{-}{-}}
+\CommentTok{\# Silueta para K{-}Medias (sobre la muestra para comparar de forma justa)}
+\NormalTok{km\_muestra\_grupos }\OtherTok{\textless{}{-}} \FunctionTok{kmeans}\NormalTok{(datos\_muestra, }\AttributeTok{centers =} \DecValTok{3}\NormalTok{, }\AttributeTok{nstart =} \DecValTok{25}\NormalTok{)}\SpecialCharTok{$}\NormalTok{cluster}
+\NormalTok{sil\_km }\OtherTok{\textless{}{-}} \FunctionTok{silhouette}\NormalTok{(km\_muestra\_grupos, matriz\_distancia)}
+
+\CommentTok{\# Silueta para Jerárquico}
+\NormalTok{sil\_hc }\OtherTok{\textless{}{-}} \FunctionTok{silhouette}\NormalTok{(hc\_grupos, matriz\_distancia)}
+
+\CommentTok{\# Visualización K{-}Medias}
+\FunctionTok{fviz\_cluster}\NormalTok{(km\_final, }\AttributeTok{data =}\NormalTok{ datos\_escalados, }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{, }
+             \AttributeTok{ellipse.type =} \StringTok{"convex"}\NormalTok{, }\AttributeTok{main =} \StringTok{"Clustering Final con K{-}means"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{clustering_files/figure-latex/unnamed-chunk-6-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Visualización Dendrograma Jerárquico}
+\FunctionTok{plot}\NormalTok{(hc\_modelo, }\AttributeTok{cex =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{main =} \StringTok{"Dendrograma Jerárquico"}\NormalTok{, }\AttributeTok{xlab=}\StringTok{""}\NormalTok{, }\AttributeTok{sub=}\StringTok{""}\NormalTok{)}
+\FunctionTok{rect.hclust}\NormalTok{(hc\_modelo, }\AttributeTok{k =} \DecValTok{3}\NormalTok{, }\AttributeTok{border =} \DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{clustering_files/figure-latex/unnamed-chunk-6-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Gráficos de Silueta comparativos}
+\FunctionTok{fviz\_silhouette}\NormalTok{(sil\_km, }\AttributeTok{main =} \StringTok{"Calidad Silueta {-} K{-}Medias"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   cluster size ave.sil.width
+## 1       1  121          0.06
+## 2       2  930          0.16
+## 3       3  949          0.57
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{clustering_files/figure-latex/unnamed-chunk-7-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{fviz\_silhouette}\NormalTok{(sil\_hc, }\AttributeTok{main =} \StringTok{"Calidad Silueta {-} Jerárquico"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   cluster size ave.sil.width
+## 1       1  264         -0.03
+## 2       2  796          0.17
+## 3       3  940          0.55
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{clustering_files/figure-latex/unnamed-chunk-7-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Asignamos los grupos del modelo K{-}medias (si fue el elegido) al dataset original}
+\NormalTok{datos\_clustering}\SpecialCharTok{$}\NormalTok{Cluster }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(km\_final}\SpecialCharTok{$}\NormalTok{cluster)}
+
+\CommentTok{\# Medidas de tendencia central por grupo (Media)}
+\NormalTok{resumen\_clusters }\OtherTok{\textless{}{-}}\NormalTok{ datos\_clustering }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Cluster) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{everything}\NormalTok{(), \textbackslash{}(x) }\FunctionTok{mean}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)))}
+
+\FunctionTok{print}\NormalTok{(}\StringTok{"Medidas de tendencia central (Media) por Clúster:"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Medidas de tendencia central (Media) por Clúster:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(resumen\_clusters)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 14
+##   Cluster     budget    revenue runtime genresAmount productionCoAmount
+##   <fct>        <dbl>      <dbl>   <dbl>        <dbl>              <dbl>
+## 1 1       102779999. 399900255.   121.          3.11              3.91 
+## 2 2           15539.     19656.    27.6         1.23              0.668
+## 3 3        10267223.  23151248.   101.          2.58              3.08 
+## # i 8 more variables: productionCountriesAmount <dbl>, actorsAmount <dbl>,
+## #   castWomenAmount <dbl>, castMenAmount <dbl>, releaseYear <dbl>,
+## #   popularity <dbl>, voteCount <dbl>, voteAvg <dbl>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Ejemplo para tablas de frecuencia de variables categóricas asociadas a los clústeres}
+\CommentTok{\# (Unimos el clúster a los datos categóricos usando el índice de las filas válidas)}
+\NormalTok{filas\_validas }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{rownames}\NormalTok{(datos\_clustering))}
+\NormalTok{movies\_cat\_validas }\OtherTok{\textless{}{-}}\NormalTok{ movies\_cat[filas\_validas, ]}
+\NormalTok{movies\_cat\_validas}\SpecialCharTok{$}\NormalTok{Cluster }\OtherTok{\textless{}{-}}\NormalTok{ datos\_clustering}\SpecialCharTok{$}\NormalTok{Cluster}
+
+\CommentTok{\# Frecuencia del Idioma Original por Clúster}
+\FunctionTok{table}\NormalTok{(movies\_cat\_validas}\SpecialCharTok{$}\NormalTok{Cluster, movies\_cat\_validas}\SpecialCharTok{$}\NormalTok{originalLanguage)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    
+##       ab   af   am   ar   as   az   be   bg   bn   bs   ca   cn   cs   cy   da
+##   1    0    0    0    0    0    0    0    0    0    0    0    1    0    0    0
+##   2    1    4   15  100    2   17    1    5   42    6   34   16   31    2   66
+##   3    0    0    0    6    0    0    0    0    3    0    2   83    5    0   28
+##    
+##       de   dv   el   en   es   et   eu   fa   fi   fr   ga   gl   gu   he   hi
+##   1    0    0    0  881    0    0    0    0    0    2    0    0    0    0    0
+##   2  365    3   32 4117  848   36    2   67   37  796    4    3    5   15   59
+##   3   94    0    7 6856  365    0    1    3    8  294    0    0    1    2   41
+##    
+##       hr   ht   hu   hy   id   ig   is   it   ja   jv   ka   kk   km   kn   ko
+##   1    0    0    0    0    0    0    0    1    3    0    0    0    0    0    2
+##   2   17    1   29    6  135    1    3  193  212    5   11   10   14   29  158
+##   3    0    0    0    0   38    0    4  108  642    0    1    1    0    1  166
+##    
+##       ku   ky   la   lb   lt   lv   mk   ml   mn   mo   mr   ms   mt   my   nb
+##   1    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0
+##   2   10    6    0    2   33   23    4   49    2    1   20   13    2    4    6
+##   3    0    0    1    0    1    1    0   10    0    0    0    4    0    1    1
+##    
+##       ne   nl   no   or   pa   pl   pt   qu   ro   ru   rw   se   si   sk   sl
+##   1    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0
+##   2    5  172   24    2    7   65  579    1   21  115    2    3    2    7    8
+##   3    0   20   30    0    0   14   47    0    4   75    0    0    1    1    1
+##    
+##       sn   so   sq   sr   sv   sw   ta   te   th   tl   tr   uk   ur   uz   vi
+##   1    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0
+##   2    1    1    9   18  103    1   62   31   37   99   93   38    6    4   25
+##   3    0    0    1    5   30    0   12   26   21   11   12    5    2    0    4
+##    
+##       xh   xx   zh   zu
+##   1    0    0    6    0
+##   2    1   92  236    1
+##   3    0    0  121    0
+\end{verbatim}
+
+\end{document}
