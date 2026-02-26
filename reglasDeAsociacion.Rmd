@@ -1,0 +1,59 @@
+---
+title: "Reglas de asociación"
+output: html_notebook
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r paquetes}
+if(! "arules" %in% installed.packages()) install.packages("arules", depend = TRUE)
+if(! "arulesViz" %in% installed.packages()) install.packages("arulesViz", depend = TRUE)
+library(arules)
+library(dplyr)
+library(arulesViz)
+```
+
+```{r}
+movies<- read.csv("datos/movies_2026.csv")
+colnames(movies)
+```
+
+```{r preparando datos}
+
+cols <- c("genres",
+          "originalLanguage",
+          "productionCountry")
+
+# Convertir en factor las categóricas y discretizar las numéricas
+datos <- movies %>%
+  select(genres,
+         originalLanguage,
+         productionCountry,
+         budget,
+         revenue,
+         runtime,
+         voteAvg,
+         popularity,
+         releaseYear) %>%
+  
+  mutate(across(all_of(cols), as.factor)) %>%
+  
+  mutate(across(!all_of(cols),
+                ~ discretize(.,
+                             method = "frequency",
+                             breaks = 3)))
+# Convertir a transaccioens
+trans <- as(datos, "transactions")
+```
+
+```{r a priori}
+rules <- apriori(trans,
+                 parameter = list(support = 0.01,
+                                  confidence = 0.6,
+                                  minlen = 2))
+inspect(rules)
+```
+
+
