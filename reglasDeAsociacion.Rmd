@@ -1,6 +1,8 @@
 ---
 title: "Reglas de asociación"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -55,5 +57,60 @@ rules <- apriori(trans,
                                   minlen = 2))
 inspect(rules)
 ```
+
+```{r}
+# Punto 2
+rules_estrictas <- apriori(trans,
+                           parameter = list(support = 0.005,
+                                            confidence = 0.8,
+                                            minlen = 2))
+cat("Reglas estrictas encontradas:", length(rules_estrictas), "\n")
+```
+
+```{r}
+# 1. Gráfica ANTES de quitar características
+top_rules_originales <- head(sort(rules, by = "confidence"), 20)
+
+plot(top_rules_originales, method = "graph", 
+     engine = "htmlwidget", 
+     main = "Top 20 Reglas (Todas las variables - Antes de limpiar)")
+```
+
+```{r}
+# 2. Eliminación de características muy frecuentes y reducción de muestra
+set.seed(123)
+
+datos_filtrados <- datos %>%
+  select(-originalLanguage, -productionCountry) %>%
+  sample_n(3000) 
+
+trans_filtradas <- as(datos_filtrados, "transactions")
+
+rules_limpias <- apriori(trans_filtradas,
+                         parameter = list(support = 0.02,
+                                          confidence = 0.6,
+                                          minlen = 2))
+
+rules_interesantes <- sort(rules_limpias, by = "lift")
+
+
+inspect(head(rules_interesantes, 10))
+```
+
+```{r}
+# 3. Gráfica DESPUÉS de quitar características
+top_rules_limpias <- head(rules_interesantes, 20)
+
+plot(top_rules_limpias, method = "graph", 
+     engine = "htmlwidget",
+     main = "Top 20 Reglas (Sin Idioma ni País - Después de limpiar)")
+
+# 4. Gráfica de Dispersión
+plot(rules_limpias, method = "scatterplot", 
+     measure = c("support", "confidence"), shading = "lift", 
+     main = "Dispersión de las reglas limpias")
+```
+
+
 
 

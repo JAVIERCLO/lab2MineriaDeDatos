@@ -11,7 +11,7 @@
 
 
 
-<title>R Notebook</title>
+<title>Reglas de asociación</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1746,39 +1746,93 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">R Notebook</h1>
+<h1 class="title toc-ignore">Reglas de asociación</h1>
 
 </div>
 
 
 <!-- rnb-text-begin -->
-<p>This is an <a href="http://rmarkdown.rstudio.com">R Markdown</a>
-Notebook. When you execute code within the notebook, the results appear
-beneath the code.</p>
-<p>Try executing this chunk by clicking the <em>Run</em> button within
-the chunk or by placing your cursor inside it and pressing
-<em>Ctrl+Shift+Enter</em>.</p>
+<!-- rnb-text-end -->
+<!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVjR3h2ZENoallYSnpLVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbnBsb3QoY2FycylcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChjYXJzKVxuYGBgIn0= -->
-<pre class="r"><code>plot(cars)</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVhV1lvSVNCY0ltRnlkV3hsYzF3aUlDVnBiaVVnYVc1emRHRnNiR1ZrTG5CaFkydGhaMlZ6S0NrcElHbHVjM1JoYkd3dWNHRmphMkZuWlhNb1hDSmhjblZzWlhOY0lpd2daR1Z3Wlc1a0lEMGdWRkpWUlNsY2JtbG1LQ0VnWENKaGNuVnNaWE5XYVhwY0lpQWxhVzRsSUdsdWMzUmhiR3hsWkM1d1lXTnJZV2RsY3lncEtTQnBibk4wWVd4c0xuQmhZMnRoWjJWektGd2lZWEoxYkdWelZtbDZYQ0lzSUdSbGNHVnVaQ0E5SUZSU1ZVVXBYRzVzYVdKeVlYSjVLR0Z5ZFd4bGN5bGNibXhwWW5KaGNua29aSEJzZVhJcFhHNXNhV0p5WVhKNUtHRnlkV3hsYzFacGVpbGNibUJnWUNKOSAtLT5cblxuYGBgclxuaWYoISBcImFydWxlc1wiICVpbiUgaW5zdGFsbGVkLnBhY2thZ2VzKCkpIGluc3RhbGwucGFja2FnZXMoXCJhcnVsZXNcIiwgZGVwZW5kID0gVFJVRSlcbmlmKCEgXCJhcnVsZXNWaXpcIiAlaW4lIGluc3RhbGxlZC5wYWNrYWdlcygpKSBpbnN0YWxsLnBhY2thZ2VzKFwiYXJ1bGVzVml6XCIsIGRlcGVuZCA9IFRSVUUpXG5saWJyYXJ5KGFydWxlcylcbmxpYnJhcnkoZHBseXIpXG5saWJyYXJ5KGFydWxlc1ZpeilcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaWYoISBcImFydWxlc1wiICVpbiUgaW5zdGFsbGVkLnBhY2thZ2VzKCkpIGluc3RhbGwucGFja2FnZXMoXCJhcnVsZXNcIiwgZGVwZW5kID0gVFJVRSlcbmlmKCEgXCJhcnVsZXNWaXpcIiAlaW4lIGluc3RhbGxlZC5wYWNrYWdlcygpKSBpbnN0YWxsLnBhY2thZ2VzKFwiYXJ1bGVzVml6XCIsIGRlcGVuZCA9IFRSVUUpXG5saWJyYXJ5KGFydWxlcylcbmxpYnJhcnkoZHBseXIpXG5saWJyYXJ5KGFydWxlc1ZpeilcbmBgYCJ9 -->
+<pre class="r"><code>if(! &quot;arules&quot; %in% installed.packages()) install.packages(&quot;arules&quot;, depend = TRUE)
+if(! &quot;arulesViz&quot; %in% installed.packages()) install.packages(&quot;arulesViz&quot;, depend = TRUE)
+library(arules)
+library(dplyr)
+library(arulesViz)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Add a new chunk by clicking the <em>Insert Chunk</em> button on the
-toolbar or by pressing <em>Ctrl+Alt+I</em>.</p>
-<p>When you save the notebook, an HTML file containing the code and
-output will be saved alongside it (click the <em>Preview</em> button or
-press <em>Ctrl+Shift+K</em> to preview the HTML file).</p>
-<p>The preview shows you a rendered HTML copy of the contents of the
-editor. Consequently, unlike <em>Knit</em>, <em>Preview</em> does not
-run any R code chunks. Instead, the output of the chunk when it was last
-run in the editor is displayed.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViVzkyYVdWelBDMGdjbVZoWkM1amMzWW9YQ0prWVhSdmN5OXRiM1pwWlhOZk1qQXlOaTVqYzNaY0lpbGNibU52Ykc1aGJXVnpLRzF2ZG1sbGN5bGNibUJnWUNKOSAtLT5cblxuYGBgclxubW92aWVzPC0gcmVhZC5jc3YoXCJkYXRvcy9tb3ZpZXNfMjAyNi5jc3ZcIilcbmNvbG5hbWVzKG1vdmllcylcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW92aWVzPC0gcmVhZC5jc3YoXCJkYXRvcy9tb3ZpZXNfMjAyNi5jc3ZcIilcbmNvbG5hbWVzKG1vdmllcylcbmBgYCJ9 -->
+<pre class="r"><code>movies&lt;- read.csv(&quot;datos/movies_2026.csv&quot;)
+colnames(movies)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcImlkXCIgICAgICAgICAgICAgICAgICAgICAgICBcImJ1ZGdldFwiICAgICAgICAgICAgICAgICAgICBcImdlbnJlc1wiICAgICAgICAgICAgICAgICAgIFxuIFs0XSBcImhvbWVQYWdlXCIgICAgICAgICAgICAgICAgICBcInByb2R1Y3Rpb25Db21wYW55XCIgICAgICAgICBcInByb2R1Y3Rpb25Db21wYW55Q291bnRyeVwiIFxuIFs3XSBcInByb2R1Y3Rpb25Db3VudHJ5XCIgICAgICAgICBcInJldmVudWVcIiAgICAgICAgICAgICAgICAgICBcInJ1bnRpbWVcIiAgICAgICAgICAgICAgICAgIFxuWzEwXSBcInZpZGVvXCIgICAgICAgICAgICAgICAgICAgICBcImRpcmVjdG9yXCIgICAgICAgICAgICAgICAgICBcImFjdG9yc1wiICAgICAgICAgICAgICAgICAgIFxuWzEzXSBcImFjdG9yc1BvcHVsYXJpdHlcIiAgICAgICAgICBcImFjdG9yc0NoYXJhY3RlclwiICAgICAgICAgICBcIm9yaWdpbmFsVGl0bGVcIiAgICAgICAgICAgIFxuWzE2XSBcInRpdGxlXCIgICAgICAgICAgICAgICAgICAgICBcIm9yaWdpbmFsTGFuZ3VhZ2VcIiAgICAgICAgICBcInBvcHVsYXJpdHlcIiAgICAgICAgICAgICAgIFxuWzE5XSBcInJlbGVhc2VEYXRlXCIgICAgICAgICAgICAgICBcInZvdGVBdmdcIiAgICAgICAgICAgICAgICAgICBcInZvdGVDb3VudFwiICAgICAgICAgICAgICAgIFxuWzIyXSBcImdlbnJlc0Ftb3VudFwiICAgICAgICAgICAgICBcInByb2R1Y3Rpb25Db0Ftb3VudFwiICAgICAgICBcInByb2R1Y3Rpb25Db3VudHJpZXNBbW91bnRcIlxuWzI1XSBcImFjdG9yc0Ftb3VudFwiICAgICAgICAgICAgICBcImNhc3RXb21lbkFtb3VudFwiICAgICAgICAgICBcImNhc3RNZW5BbW91bnRcIiAgICAgICAgICAgIFxuWzI4XSBcInJlbGVhc2VZZWFyXCIgICAgICAgICAgICAgIFxuIn0= -->
+<pre><code> [1] &quot;id&quot;                        &quot;budget&quot;                    &quot;genres&quot;                   
+ [4] &quot;homePage&quot;                  &quot;productionCompany&quot;         &quot;productionCompanyCountry&quot; 
+ [7] &quot;productionCountry&quot;         &quot;revenue&quot;                   &quot;runtime&quot;                  
+[10] &quot;video&quot;                     &quot;director&quot;                  &quot;actors&quot;                   
+[13] &quot;actorsPopularity&quot;          &quot;actorsCharacter&quot;           &quot;originalTitle&quot;            
+[16] &quot;title&quot;                     &quot;originalLanguage&quot;          &quot;popularity&quot;               
+[19] &quot;releaseDate&quot;               &quot;voteAvg&quot;                   &quot;voteCount&quot;                
+[22] &quot;genresAmount&quot;              &quot;productionCoAmount&quot;        &quot;productionCountriesAmount&quot;
+[25] &quot;actorsAmount&quot;              &quot;castWomenAmount&quot;           &quot;castMenAmount&quot;            
+[28] &quot;releaseYear&quot;              </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVYRzVqYjJ4eklEd3RJR01vWENKblpXNXlaWE5jSWl4Y2JpQWdJQ0FnSUNBZ0lDQmNJbTl5YVdkcGJtRnNUR0Z1WjNWaFoyVmNJaXhjYmlBZ0lDQWdJQ0FnSUNCY0luQnliMlIxWTNScGIyNURiM1Z1ZEhKNVhDSXBYRzVjYmlNZ1EyOXVkbVZ5ZEdseUlHVnVJR1poWTNSdmNpQnNZWE1nWTJGMFpXZkRzM0pwWTJGeklIa2daR2x6WTNKbGRHbDZZWElnYkdGeklHNTFiY09wY21sallYTmNibVJoZEc5eklEd3RJRzF2ZG1sbGN5QWxQaVZjYmlBZ2MyVnNaV04wS0dkbGJuSmxjeXhjYmlBZ0lDQWdJQ0FnSUc5eWFXZHBibUZzVEdGdVozVmhaMlVzWEc0Z0lDQWdJQ0FnSUNCd2NtOWtkV04wYVc5dVEyOTFiblJ5ZVN4Y2JpQWdJQ0FnSUNBZ0lHSjFaR2RsZEN4Y2JpQWdJQ0FnSUNBZ0lISmxkbVZ1ZFdVc1hHNGdJQ0FnSUNBZ0lDQnlkVzUwYVcxbExGeHVJQ0FnSUNBZ0lDQWdkbTkwWlVGMlp5eGNiaUFnSUNBZ0lDQWdJSEJ2Y0hWc1lYSnBkSGtzWEc0Z0lDQWdJQ0FnSUNCeVpXeGxZWE5sV1dWaGNpa2dKVDRsWEc0Z0lGeHVJQ0J0ZFhSaGRHVW9ZV055YjNOektHRnNiRjl2WmloamIyeHpLU3dnWVhNdVptRmpkRzl5S1NrZ0pUNGxYRzRnSUZ4dUlDQnRkWFJoZEdVb1lXTnliM056S0NGaGJHeGZiMllvWTI5c2N5a3NYRzRnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdmaUJrYVhOamNtVjBhWHBsS0M0c1hHNGdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJRzFsZEdodlpDQTlJRndpWm5KbGNYVmxibU41WENJc1hHNGdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJR0p5WldGcmN5QTlJRE1wS1NsY2JpTWdRMjl1ZG1WeWRHbHlJR0VnZEhKaGJuTmhZMk5wYjJWdWMxeHVkSEpoYm5NZ1BDMGdZWE1vWkdGMGIzTXNJRndpZEhKaGJuTmhZM1JwYjI1elhDSXBYRzVnWUdBaWZRPT0gLS0+XG5cbmBgYHJcblxuY29scyA8LSBjKFwiZ2VucmVzXCIsXG4gICAgICAgICAgXCJvcmlnaW5hbExhbmd1YWdlXCIsXG4gICAgICAgICAgXCJwcm9kdWN0aW9uQ291bnRyeVwiKVxuXG4jIENvbnZlcnRpciBlbiBmYWN0b3IgbGFzIGNhdGVnw7NyaWNhcyB5IGRpc2NyZXRpemFyIGxhcyBudW3DqXJpY2FzXG5kYXRvcyA8LSBtb3ZpZXMgJT4lXG4gIHNlbGVjdChnZW5yZXMsXG4gICAgICAgICBvcmlnaW5hbExhbmd1YWdlLFxuICAgICAgICAgcHJvZHVjdGlvbkNvdW50cnksXG4gICAgICAgICBidWRnZXQsXG4gICAgICAgICByZXZlbnVlLFxuICAgICAgICAgcnVudGltZSxcbiAgICAgICAgIHZvdGVBdmcsXG4gICAgICAgICBwb3B1bGFyaXR5LFxuICAgICAgICAgcmVsZWFzZVllYXIpICU+JVxuICBcbiAgbXV0YXRlKGFjcm9zcyhhbGxfb2YoY29scyksIGFzLmZhY3RvcikpICU+JVxuICBcbiAgbXV0YXRlKGFjcm9zcyghYWxsX29mKGNvbHMpLFxuICAgICAgICAgICAgICAgIH4gZGlzY3JldGl6ZSguLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtZXRob2QgPSBcImZyZXF1ZW5jeVwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVha3MgPSAzKSkpXG4jIENvbnZlcnRpciBhIHRyYW5zYWNjaW9lbnNcbnRyYW5zIDwtIGFzKGRhdG9zLCBcInRyYW5zYWN0aW9uc1wiKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5jb2xzIDwtIGMoXCJnZW5yZXNcIixcbiAgICAgICAgICBcIm9yaWdpbmFsTGFuZ3VhZ2VcIixcbiAgICAgICAgICBcInByb2R1Y3Rpb25Db3VudHJ5XCIpXG5cbiMgQ29udmVydGlyIGVuIGZhY3RvciBsYXMgY2F0ZWfDs3JpY2FzIHkgZGlzY3JldGl6YXIgbGFzIG51bcOpcmljYXNcbmRhdG9zIDwtIG1vdmllcyAlPiVcbiAgc2VsZWN0KGdlbnJlcyxcbiAgICAgICAgIG9yaWdpbmFsTGFuZ3VhZ2UsXG4gICAgICAgICBwcm9kdWN0aW9uQ291bnRyeSxcbiAgICAgICAgIGJ1ZGdldCxcbiAgICAgICAgIHJldmVudWUsXG4gICAgICAgICBydW50aW1lLFxuICAgICAgICAgdm90ZUF2ZyxcbiAgICAgICAgIHBvcHVsYXJpdHksXG4gICAgICAgICByZWxlYXNlWWVhcikgJT4lXG4gIFxuICBtdXRhdGUoYWNyb3NzKGFsbF9vZihjb2xzKSwgYXMuZmFjdG9yKSkgJT4lXG4gIFxuICBtdXRhdGUoYWNyb3NzKCFhbGxfb2YoY29scyksXG4gICAgICAgICAgICAgICAgfiBkaXNjcmV0aXplKC4sXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIG1ldGhvZCA9IFwiZnJlcXVlbmN5XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrcyA9IDMpKSlcbiMgQ29udmVydGlyIGEgdHJhbnNhY2Npb2Vuc1xudHJhbnMgPC0gYXMoZGF0b3MsIFwidHJhbnNhY3Rpb25zXCIpXG5gYGAifQ== -->
+<pre class="r"><code>
+cols &lt;- c(&quot;genres&quot;,
+          &quot;originalLanguage&quot;,
+          &quot;productionCountry&quot;)
+
+# Convertir en factor las categóricas y discretizar las numéricas
+datos &lt;- movies %&gt;%
+  select(genres,
+         originalLanguage,
+         productionCountry,
+         budget,
+         revenue,
+         runtime,
+         voteAvg,
+         popularity,
+         releaseYear) %&gt;%
+  
+  mutate(across(all_of(cols), as.factor)) %&gt;%
+  
+  mutate(across(!all_of(cols),
+                ~ discretize(.,
+                             method = &quot;frequency&quot;,
+                             breaks = 3)))
+# Convertir a transaccioens
+trans &lt;- as(datos, &quot;transactions&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiANCg0KVHJ5IGV4ZWN1dGluZyB0aGlzIGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqUnVuKiBidXR0b24gd2l0aGluIHRoZSBjaHVuayBvciBieSBwbGFjaW5nIHlvdXIgY3Vyc29yIGluc2lkZSBpdCBhbmQgcHJlc3NpbmcgKkN0cmwrU2hpZnQrRW50ZXIqLiANCg0KYGBge3J9DQpwbG90KGNhcnMpDQpgYGANCg0KQWRkIGEgbmV3IGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqSW5zZXJ0IENodW5rKiBidXR0b24gb24gdGhlIHRvb2xiYXIgb3IgYnkgcHJlc3NpbmcgKkN0cmwrQWx0K0kqLg0KDQpXaGVuIHlvdSBzYXZlIHRoZSBub3RlYm9vaywgYW4gSFRNTCBmaWxlIGNvbnRhaW5pbmcgdGhlIGNvZGUgYW5kIG91dHB1dCB3aWxsIGJlIHNhdmVkIGFsb25nc2lkZSBpdCAoY2xpY2sgdGhlICpQcmV2aWV3KiBidXR0b24gb3IgcHJlc3MgKkN0cmwrU2hpZnQrSyogdG8gcHJldmlldyB0aGUgSFRNTCBmaWxlKS4NCg0KVGhlIHByZXZpZXcgc2hvd3MgeW91IGEgcmVuZGVyZWQgSFRNTCBjb3B5IG9mIHRoZSBjb250ZW50cyBvZiB0aGUgZWRpdG9yLiBDb25zZXF1ZW50bHksIHVubGlrZSAqS25pdCosICpQcmV2aWV3KiBkb2VzIG5vdCBydW4gYW55IFIgY29kZSBjaHVua3MuIEluc3RlYWQsIHRoZSBvdXRwdXQgb2YgdGhlIGNodW5rIHdoZW4gaXQgd2FzIGxhc3QgcnVuIGluIHRoZSBlZGl0b3IgaXMgZGlzcGxheWVkLg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlJlZ2xhcyBkZSBhc29jaWFjacOzbiINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KLS0tDQoNCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCmBgYHtyIHBhcXVldGVzfQ0KaWYoISAiYXJ1bGVzIiAlaW4lIGluc3RhbGxlZC5wYWNrYWdlcygpKSBpbnN0YWxsLnBhY2thZ2VzKCJhcnVsZXMiLCBkZXBlbmQgPSBUUlVFKQ0KaWYoISAiYXJ1bGVzVml6IiAlaW4lIGluc3RhbGxlZC5wYWNrYWdlcygpKSBpbnN0YWxsLnBhY2thZ2VzKCJhcnVsZXNWaXoiLCBkZXBlbmQgPSBUUlVFKQ0KbGlicmFyeShhcnVsZXMpDQpsaWJyYXJ5KGRwbHlyKQ0KbGlicmFyeShhcnVsZXNWaXopDQpgYGANCg0KYGBge3J9DQptb3ZpZXM8LSByZWFkLmNzdigiZGF0b3MvbW92aWVzXzIwMjYuY3N2IikNCmNvbG5hbWVzKG1vdmllcykNCmBgYA0KDQpgYGB7ciBwcmVwYXJhbmRvIGRhdG9zfQ0KDQpjb2xzIDwtIGMoImdlbnJlcyIsDQogICAgICAgICAgIm9yaWdpbmFsTGFuZ3VhZ2UiLA0KICAgICAgICAgICJwcm9kdWN0aW9uQ291bnRyeSIpDQoNCiMgQ29udmVydGlyIGVuIGZhY3RvciBsYXMgY2F0ZWfDs3JpY2FzIHkgZGlzY3JldGl6YXIgbGFzIG51bcOpcmljYXMNCmRhdG9zIDwtIG1vdmllcyAlPiUNCiAgc2VsZWN0KGdlbnJlcywNCiAgICAgICAgIG9yaWdpbmFsTGFuZ3VhZ2UsDQogICAgICAgICBwcm9kdWN0aW9uQ291bnRyeSwNCiAgICAgICAgIGJ1ZGdldCwNCiAgICAgICAgIHJldmVudWUsDQogICAgICAgICBydW50aW1lLA0KICAgICAgICAgdm90ZUF2ZywNCiAgICAgICAgIHBvcHVsYXJpdHksDQogICAgICAgICByZWxlYXNlWWVhcikgJT4lDQogIA0KICBtdXRhdGUoYWNyb3NzKGFsbF9vZihjb2xzKSwgYXMuZmFjdG9yKSkgJT4lDQogIA0KICBtdXRhdGUoYWNyb3NzKCFhbGxfb2YoY29scyksDQogICAgICAgICAgICAgICAgfiBkaXNjcmV0aXplKC4sDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgIG1ldGhvZCA9ICJmcmVxdWVuY3kiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVha3MgPSAzKSkpDQojIENvbnZlcnRpciBhIHRyYW5zYWNjaW9lbnMNCnRyYW5zIDwtIGFzKGRhdG9zLCAidHJhbnNhY3Rpb25zIikNCmBgYA0KDQpgYGB7ciBhIHByaW9yaX0NCnJ1bGVzIDwtIGFwcmlvcmkodHJhbnMsDQogICAgICAgICAgICAgICAgIHBhcmFtZXRlciA9IGxpc3Qoc3VwcG9ydCA9IDAuMDEsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29uZmlkZW5jZSA9IDAuNiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtaW5sZW4gPSAyKSkNCmluc3BlY3QocnVsZXMpDQpgYGANCg0KYGBge3J9DQojIC0tLSBQcnVlYmEgMjogVmFyaWFuZG8gU29wb3J0ZSB5IENvbmZpYW56YSAtLS0NCiMgQnVzY2Ftb3MgcmVnbGFzIG1lbm9zIGZyZWN1ZW50ZXMgKHNvcG9ydGUgbcOhcyBiYWpvKSBwZXJvIGNvbiBtYXlvciBjZXJ0ZXphIChjb25maWFuemEgYWx0YSkNCnJ1bGVzX2VzdHJpY3RhcyA8LSBhcHJpb3JpKHRyYW5zLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFyYW1ldGVyID0gbGlzdChzdXBwb3J0ID0gMC4wMDUsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbmZpZGVuY2UgPSAwLjgsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG1pbmxlbiA9IDIpKQ0KY2F0KCJSZWdsYXMgZXN0cmljdGFzIGVuY29udHJhZGFzOiIsIGxlbmd0aChydWxlc19lc3RyaWN0YXMpLCAiXG4iKQ0KDQoNCiMgLS0tIEVsaW1pbmFjacOzbiBkZSBjYXJhY3RlcsOtc3RpY2FzIG11eSBmcmVjdWVudGVzIC0tLQ0KIyBRdWl0YW1vcyBlbCBpZGlvbWEgeSBlbCBwYcOtcyBkZSBwcm9kdWNjacOzbiBwYXJhIGV2aXRhciByZWdsYXMgb2J2aWFzDQpkYXRvc19maWx0cmFkb3MgPC0gZGF0b3MgJT4lDQogIHNlbGVjdCgtb3JpZ2luYWxMYW5ndWFnZSwgLXByb2R1Y3Rpb25Db3VudHJ5KQ0KDQp0cmFuc19maWx0cmFkYXMgPC0gYXMoZGF0b3NfZmlsdHJhZG9zLCAidHJhbnNhY3Rpb25zIikNCg0KIyBHZW5lcmFtb3MgcmVnbGFzIGNvbiBlbCBkYXRhc2V0IGxpbXBpbw0KcnVsZXNfbGltcGlhcyA8LSBhcHJpb3JpKHRyYW5zX2ZpbHRyYWRhcywNCiAgICAgICAgICAgICAgICAgICAgICAgICBwYXJhbWV0ZXIgPSBsaXN0KHN1cHBvcnQgPSAwLjAyLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29uZmlkZW5jZSA9IDAuNiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG1pbmxlbiA9IDIpKQ0KDQojIC0tLSBPcmRlbmFyIHBvciAnTGlmdCcgcGFyYSBlbmNvbnRyYXIgbGFzIG3DoXMgaW50ZXJlc2FudGVzIC0tLQ0KIyBFbCBsaWZ0ID4gMSBpbmRpY2EgcXVlIGxhIHJlZ2xhIG5vIGVzIHNpbXBsZSBjb2luY2lkZW5jaWENCnJ1bGVzX2ludGVyZXNhbnRlcyA8LSBzb3J0KHJ1bGVzX2xpbXBpYXMsIGJ5ID0gImxpZnQiKQ0KDQojIEluc3BlY2Npb25hbW9zIGxhcyAxMCBtZWpvcmVzIHJlZ2xhcw0KaW5zcGVjdChoZWFkKHJ1bGVzX2ludGVyZXNhbnRlcywgMTApKQ0KYGBgDQoNCg==</div>
 
 
 
