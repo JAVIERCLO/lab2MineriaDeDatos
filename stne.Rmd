@@ -1,0 +1,42 @@
+---
+title: "Otros algoritmos: t-SNE"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(Rtsne)
+library(ggplot2)
+
+# 1. CARGA Y PREPARACIÓN (Esto es lo que faltaba para definir 'datos_escalados')
+movies <- read.csv("datos/movies_2026.csv")
+numericas <- c("budget","revenue","runtime","genresAmount","productionCoAmount",
+               "productionCountriesAmount","actorsAmount","castWomenAmount",
+               "castMenAmount","releaseYear", "popularity", "voteCount", "voteAvg")
+movies_num <- movies[, numericas]
+
+# Plan de rescate para NAs
+datos_prep <- na.omit(movies_num)
+if (nrow(datos_prep) < 100) {
+  datos_prep <- movies_num
+  datos_prep[is.na(datos_prep)] <- 0
+}
+datos_escalados <- scale(datos_prep)
+
+# 2. t-SNE: Usamos muestra de 2,000 para que tu Mac no sufra
+set.seed(123)
+# t-SNE no acepta duplicados, los removemos de la muestra
+idx <- sample(nrow(datos_escalados), 2000)
+muestra_tsne <- unique(datos_escalados[idx, ])
+
+# Ejecución
+tsne_results <- Rtsne(muestra_tsne, dims = 2, perplexity = 30, verbose = FALSE, max_iter = 500)
+
+# 3. Visualización
+tsne_df <- as.data.frame(tsne_results$Y)
+ggplot(tsne_df, aes(x = V1, y = V2)) +
+  geom_point(color = "steelblue", alpha = 0.6) +
+  labs(title = "Visualización de Películas de CineVision con t-SNE",
+       subtitle = "Reducción de dimensionalidad no lineal",
+       x = "Dimensión 1", y = "Dimensión 2") +
+  theme_minimal()
+```
