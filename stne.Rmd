@@ -1,42 +1,52 @@
 ---
-title: "Otros algoritmos: t-SNE"
+title: "Análisis t-SNE - CineVision Studios"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 library(Rtsne)
 library(ggplot2)
+```
 
-# 1. CARGA Y PREPARACIÓN (Esto es lo que faltaba para definir 'datos_escalados')
+```{r}
+# dataset original
 movies <- read.csv("datos/movies_2026.csv")
-numericas <- c("budget","revenue","runtime","genresAmount","productionCoAmount",
-               "productionCountriesAmount","actorsAmount","castWomenAmount",
-               "castMenAmount","releaseYear", "popularity", "voteCount", "voteAvg")
+
+numericas <- c("budget", "revenue", "runtime", "popularity", "voteCount", "voteAvg")
 movies_num <- movies[, numericas]
 
-# Plan de rescate para NAs
-datos_prep <- na.omit(movies_num)
-if (nrow(datos_prep) < 100) {
-  datos_prep <- movies_num
-  datos_prep[is.na(datos_prep)] <- 0
-}
-datos_escalados <- scale(datos_prep)
+movies_num[is.na(movies_num)] <- 0
 
-# 2. t-SNE: Usamos muestra de 2,000 para que tu Mac no sufra
+# Escalar los datos
+datos_escalados <- scale(movies_num)
+```
+
+```{r}
 set.seed(123)
-# t-SNE no acepta duplicados, los removemos de la muestra
-idx <- sample(nrow(datos_escalados), 2000)
+# Tomar muestra y eliminar duplicados
+idx <- sample(nrow(datos_escalados), 500)
 muestra_tsne <- unique(datos_escalados[idx, ])
 
-# Ejecución
-tsne_results <- Rtsne(muestra_tsne, dims = 2, perplexity = 30, verbose = FALSE, max_iter = 500)
+# Correr el algoritmo
+tsne_results <- Rtsne(muestra_tsne, 
+                      dims = 2, 
+                      perplexity = 15, 
+                      verbose = FALSE, 
+                      max_iter = 500)
 
-# 3. Visualización
-tsne_df <- as.data.frame(tsne_results$Y)
-ggplot(tsne_df, aes(x = V1, y = V2)) +
-  geom_point(color = "steelblue", alpha = 0.6) +
-  labs(title = "Visualización de Películas de CineVision con t-SNE",
-       subtitle = "Reducción de dimensionalidad no lineal",
-       x = "Dimensión 1", y = "Dimensión 2") +
+
+tsne_plot_data <- as.data.frame(tsne_results$Y)
+colnames(tsne_plot_data) <- c("Dim1", "Dim2")
+```
+
+```{r}
+ggplot(tsne_plot_data, aes(x = Dim1, y = Dim2)) +
+  geom_point(color = "#2c3e50", alpha = 0.7, size = 2) +
+  labs(title = "Visualización t-SNE para CineVision Studios",
+       subtitle = "Reducción de dimensionalidad no lineal (n=500)",
+       x = "Dimensión 1", 
+       y = "Dimensión 2") +
   theme_minimal()
 ```
+
